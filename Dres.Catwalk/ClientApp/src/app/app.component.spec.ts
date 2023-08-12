@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'dres.catwalk'`, () => {
+  it(`should have as title 'dres-catwalk'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('dres.catwalk');
+    expect(app.title).toEqual('dres-catwalk');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('dres.catwalk app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('dres-catwalk app is running!');
   });
 });

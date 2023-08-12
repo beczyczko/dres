@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dres.catwalk": {
+    "dres-catwalk": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/dres.catwalk",
+            "outputPath": "dist/dres-catwalk",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -27,12 +27,22 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@sakirtemel/plantuml.js",
+                "output": "./assets/@sakirtemel/plantuml.js"
+              }
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              {
+                "bundleName": "plantuml",
+                "input": "node_modules/@sakirtemel/plantuml.js/plantuml.js"
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -65,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "dres.catwalk:build:production"
+              "browserTarget": "dres-catwalk:build:production"
             },
             "development": {
-              "browserTarget": "dres.catwalk:build:development"
+              "browserTarget": "dres-catwalk:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dres.catwalk:build"
+            "browserTarget": "dres-catwalk:build"
           }
         },
         "test": {
