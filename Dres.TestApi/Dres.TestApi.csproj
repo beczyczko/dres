@@ -21,6 +21,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Dres.Extensions.DependencyInjection\Dres.Extensions.DependencyInjection.csproj" />
+      <ProjectReference Include="..\Test.Resources.Carts\Test.Resources.Carts.csproj" />
+      <ProjectReference Include="..\Test.Resources.Countries\Test.Resources.Countries.csproj" />
+      <ProjectReference Include="..\Test.Resources.Customers\Test.Resources.Customers.csproj" />
+      <ProjectReference Include="..\Test.Resources.Products\Test.Resources.Products.csproj" />
+      <ProjectReference Include="..\Test.Resources.Purchases\Test.Resources.Purchases.csproj" />
     </ItemGroup>
 
 </Project>
