@@ -4,3 +4,7 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 .idea/
+.vs/
+Dres.Catwalk/ClientApp/.angular/
+Dres.TestWebApp/Dres.TestWebApp.csproj.user
+Dres.TestApi/Dres.TestApi.csproj.user

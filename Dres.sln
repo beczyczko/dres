@@ -1,26 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.TestApi", "Dres.TestApi\Dres.TestApi.csproj", "{BCF5ECFE-78E5-4DFE-92B2-3D56208A8D26}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dres.TestApi", "Dres.TestApi\Dres.TestApi.csproj", "{BCF5ECFE-78E5-4DFE-92B2-3D56208A8D26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.Core", "Dres.Core\Dres.Core.csproj", "{7D810963-AA91-4547-A204-B1C2B9A5DF6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dres.Core", "Dres.Core\Dres.Core.csproj", "{7D810963-AA91-4547-A204-B1C2B9A5DF6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.Extensions.DependencyInjection", "Dres.Extensions.DependencyInjection\Dres.Extensions.DependencyInjection.csproj", "{CFE9E5A9-BB11-4763-B302-B33F9AA502CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dres.Extensions.DependencyInjection", "Dres.Extensions.DependencyInjection\Dres.Extensions.DependencyInjection.csproj", "{CFE9E5A9-BB11-4763-B302-B33F9AA502CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.TestWebApp", "Dres.TestWebApp\Dres.TestWebApp.csproj", "{1B246689-7B31-47ED-9F8F-5AB55D5462AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dres.TestWebApp", "Dres.TestWebApp\Dres.TestWebApp.csproj", "{1B246689-7B31-47ED-9F8F-5AB55D5462AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test.Resources", "Test.Resources", "{33327979-0422-4D1D-851B-F9257703AB9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Resources.Countries", "Test.Resources.Countries\Test.Resources.Countries.csproj", "{E9B826D5-49E9-4F0C-8959-45734EF3E48E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Resources.Countries", "Test.Resources.Countries\Test.Resources.Countries.csproj", "{E9B826D5-49E9-4F0C-8959-45734EF3E48E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Resources.Common", "Test.Resources.Common\Test.Resources.Common.csproj", "{EBB7E095-0376-41A8-9BAE-C3AC6F28CAE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Resources.Common", "Test.Resources.Common\Test.Resources.Common.csproj", "{EBB7E095-0376-41A8-9BAE-C3AC6F28CAE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Resources.Customers", "Test.Resources.Customers\Test.Resources.Customers.csproj", "{19E806C2-D653-453E-ABF0-2A18F6CD20F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Resources.Customers", "Test.Resources.Customers\Test.Resources.Customers.csproj", "{19E806C2-D653-453E-ABF0-2A18F6CD20F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Resources.Carts", "Test.Resources.Carts\Test.Resources.Carts.csproj", "{FB6D6916-6823-48A6-95F8-3CC971F4EB28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Resources.Carts", "Test.Resources.Carts\Test.Resources.Carts.csproj", "{FB6D6916-6823-48A6-95F8-3CC971F4EB28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Resources.Products", "Test.Resources.Products\Test.Resources.Products.csproj", "{B2B9C93B-BE9B-4BDC-BB89-B262C6CB3F47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Resources.Products", "Test.Resources.Products\Test.Resources.Products.csproj", "{B2B9C93B-BE9B-4BDC-BB89-B262C6CB3F47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Resources.Purchases", "Test.Resources.Purchases\Test.Resources.Purchases.csproj", "{A96E7058-A0CC-4038-AD93-C4211C8228D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Resources.Purchases", "Test.Resources.Purchases\Test.Resources.Purchases.csproj", "{A96E7058-A0CC-4038-AD93-C4211C8228D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.Catwalk", "Dres.Catwalk\Dres.Catwalk.csproj", "{4E1E8462-FD63-47A5-B74B-44D9F66B7AA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +73,13 @@ Global
 		{A96E7058-A0CC-4038-AD93-C4211C8228D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A96E7058-A0CC-4038-AD93-C4211C8228D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A96E7058-A0CC-4038-AD93-C4211C8228D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E1E8462-FD63-47A5-B74B-44D9F66B7AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E1E8462-FD63-47A5-B74B-44D9F66B7AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E1E8462-FD63-47A5-B74B-44D9F66B7AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E1E8462-FD63-47A5-B74B-44D9F66B7AA2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E9B826D5-49E9-4F0C-8959-45734EF3E48E} = {33327979-0422-4D1D-851B-F9257703AB9F}

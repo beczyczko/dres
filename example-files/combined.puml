@@ -1,0 +1,9 @@
+@startuml
+
+!include dres.puml
+!include dres2.puml
+
+left to right direction
+title Combined Domain model relationships
+
+@enduml

@@ -95,6 +95,7 @@ frame Resources.Purchases {
 
 Resources.Customers.CreditCard "Customer" ...> "Id" Resources.Customers.Customer
 Resources.Customers.Customer "CountryId" ...> "Id" Resources.Countries.Country
+Resources.Customers.Customer "CountryId" ...> "Id" SecondSystem.Resources.Countries.Country
 Resources.Carts.Cart "CustomerId" ...> "Id" Resources.Customers.Customer
 Resources.Carts.CartProduct "CartId" ...> "Id" Resources.Carts.Cart
 Resources.Carts.CartProduct "CustomerId" ...> "Id" Resources.Customers.Customer

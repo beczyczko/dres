@@ -1,0 +1,13 @@
+@startuml
+
+left to right direction
+title Domain model relationships
+
+frame SecondSystem.Resources.Countries {
+    class Country {
+        + Id : Guid
+        + Name : String
+    }
+}
+
+@enduml
