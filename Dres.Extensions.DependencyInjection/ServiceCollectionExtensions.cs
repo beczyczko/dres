@@ -24,13 +24,11 @@ public static class ServiceCollectionExtensions
 
     public static void UseDres(this IApplicationBuilder app)
     {
-        // app.MapControllerRoute(
-        // name: "dres",
-        // pattern: "dres/{controller}");
         app.UseRouting();
-        
-        app.UseEndpoints(
-            builder => builder.MapControllers());
+
+        app.UseEndpoints(builder => builder.MapControllerRoute(
+            name: "dres",
+            pattern: "dres/{controller}"));
     }
 }
 
