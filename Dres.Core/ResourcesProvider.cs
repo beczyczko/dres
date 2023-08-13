@@ -26,7 +26,8 @@ public class ResourcesProvider : IResourcesProvider
                     var resource = new Resource(
                         resourceAttribute.Name,
                         resourceAttribute.Context,
-                        resourceType.AssemblyQualifiedName!);
+                        resourceType.AssemblyQualifiedName!,
+                        new List<Property>());
 
                     var propertiesAttributes = propertyInfos
                         .Select(
@@ -35,7 +36,7 @@ public class ResourcesProvider : IResourcesProvider
                                 var propertyResourceAttributes = p.GetCustomAttribute<ResourceRelationAttribute>(inherit: true);
 
                                 return new Property(
-                                    resource,
+                                    resource.Identifier,
                                     p.Name,
                                     p.PropertyType.Name,
                                     propertyResourceAttributes);

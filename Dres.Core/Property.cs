@@ -4,18 +4,25 @@ namespace Dres.Core;
 
 public class Property
 {
-    public Property(Resource resource, string name, string type, ResourceRelationAttribute? resourceAttribute)
+    [JsonConstructor]
+    public Property(string resourceIdentifier, string name, string type, string[] relatedResourcesIdentifiers)
     {
-        Resource = resource;
+        ResourceIdentifier = resourceIdentifier;
+        Name = name;
+        Type = type;
+        RelatedResourcesIdentifiers = relatedResourcesIdentifiers;
+    }
+    
+    public Property(string resourceIdentifier, string name, string type, ResourceRelationAttribute? resourceAttribute)
+    {
+        ResourceIdentifier = resourceIdentifier;
         Name = name;
         Type = type;
         RelatedResourcesIdentifiers = resourceAttribute?.ResourceIdentifiers ?? Array.Empty<string>();
     }
 
-    [JsonIgnore]
-    public Resource Resource { get; }
-
-    public string Name { get; }
-    public string Type { get; }
-    public string[] RelatedResourcesIdentifiers { get; }
+    public string ResourceIdentifier { get; }
+    public string Name { get; private set; }
+    public string Type { get; private set; }
+    public string[] RelatedResourcesIdentifiers { get; private set; }
 }

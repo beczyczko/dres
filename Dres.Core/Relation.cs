@@ -22,7 +22,7 @@ public class Relation
         return new StringBuilder()
             .AppendIndent(baseIndent)
             .AppendLine()
-            .Append($"{Property.Resource.DomainContext}.{Property.Resource.Name} \"{Property.Name}\"")
+            .Append($"{Property.ResourceIdentifier} \"{Property.Name}\"")
             .Append(value: " ...> ")
             .Append($"\"Id\" {relatedResourceIdentifier}")
             .ToString();
