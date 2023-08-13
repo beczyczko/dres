@@ -1,40 +1,37 @@
-import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+import { PumlService } from './api-client/services';
 
 declare var plantuml: any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [PumlService]
 })
 export class AppComponent implements OnInit {
   title = 'dres-catwalk';
   plantumlInitialized = new BehaviorSubject(false);
+
+  constructor(private pumlService: PumlService) {
+  }
 
   public ngOnInit() {
     plantuml.initialize('assets/@sakirtemel/plantuml.js').then(() => {
       this.plantumlInitialized.next(true);
 
       // todo db render on some UI interaction
-      const pumlContent = this.getPumlContent();
-      this.renderPuml(pumlContent);
+      this.getPumlContent()
+        .pipe(
+          switchMap((pumlContent: string) => this.renderPuml(pumlContent))
+        ).subscribe();
     })
   }
 
-  public getPumlContent(): string {
-    // todo db from API
-    return `
-@startuml
-
-!include https://localhost:7090/api/puml/1
-!include https://localhost:7090/api/puml/2
-
-left to right direction
-title Combined Domain model relationships
-
-@enduml
-`;
+  public getPumlContent(): Observable<string> {
+    return this.pumlService.getCombined(['1', '2'])
+      .pipe(map(res => res.content));
   }
 
   public renderPuml(pumlContent: string): Promise<any> {

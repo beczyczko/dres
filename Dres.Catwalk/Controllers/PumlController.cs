@@ -1,46 +1,59 @@
 ﻿using System.Collections.Immutable;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using Dres.Core;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dres.Catwalk.Controllers
+namespace Dres.Catwalk.Controllers;
+
+[ApiController]
+[Route("api/resources")]
+public class ResourcesController : ControllerBase
 {
-    [ApiController]
-    [Route("api/puml")]
-    public class PumlController : ControllerBase
+    [HttpGet]
+    public ActionResult Get()
     {
-        private readonly ILogger<PumlController> _logger;
-        private readonly IResourceRelationsPumlBuilder _resourceRelationsPumlBuilder;
+        //todo db
+        return Ok();
+    }
+}
 
-        public PumlController(
-            ILogger<PumlController> logger,
-            IResourceRelationsPumlBuilder resourceRelationsPumlBuilder)
+[ApiController]
+[Route("api/puml")]
+public class PumlController : ControllerBase
+{
+    private readonly ILogger<PumlController> _logger;
+    private readonly IResourceRelationsPumlBuilder _resourceRelationsPumlBuilder;
+
+    public PumlController(
+        ILogger<PumlController> logger,
+        IResourceRelationsPumlBuilder resourceRelationsPumlBuilder)
+    {
+        _logger = logger;
+        _resourceRelationsPumlBuilder = resourceRelationsPumlBuilder;
+    }
+
+    [HttpGet("combined")]
+    public ActionResult<PumlAo> GetCombined([FromQuery] string[] specIds)
+    {
+        var resources = specIds.SelectMany(id => ResourcesById(id));
+        var puml = _resourceRelationsPumlBuilder.Build(resources);
+        return new PumlAo(puml);
+    }
+
+
+    [HttpGet("{id}")]
+    public ActionResult<PumlAo> ById(string id)
+    {
+        return new PumlAo("");
+    }
+
+    private IImmutableList<Resource> ResourcesById(string id)
+    {
+        //todo db to database
+        if (id == "1")
         {
-            _logger = logger;
-            _resourceRelationsPumlBuilder = resourceRelationsPumlBuilder;
-        }
-
-        [HttpGet("combined")]
-        public string GetCombined([FromQuery] string[] specIds)
-        {
-            var resources = specIds.SelectMany(id => ResourcesById(id));
-            var puml = _resourceRelationsPumlBuilder.Build(resources);
-            return puml;
-        }
-
-
-        [HttpGet("{id}")]
-        public string ById(string id)
-        {
-            return "";
-        }
-
-        private IImmutableList<Resource> ResourcesById(string id)
-        {
-          //todo db to database
-            if (id == "1")
-            {
-                var resorucesJson = @"
+            var resorucesJson = @"
 
 [
   {
@@ -467,20 +480,21 @@ namespace Dres.Catwalk.Controllers
   }
 ]              
 ";
-                var resources = JsonSerializer.Deserialize<Resource[]>(resorucesJson, options: new JsonSerializerOptions()
+            var resources = JsonSerializer.Deserialize<Resource[]>(resorucesJson,
+                options: new JsonSerializerOptions()
                 {
-                  PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 })!.ToImmutableList();
-                return resources;
-            }
-
-            if (id == "2")
-            {
-                return JsonSerializer.Deserialize<Resource[]>("[]")!.ToImmutableList();
-            }
-
-            return Array.Empty<Resource>().ToImmutableList();
+            return resources;
         }
+
+        if (id == "2")
+        {
+            return JsonSerializer.Deserialize<Resource[]>("[]")!.ToImmutableList();
+        }
+
+        return Array.Empty<Resource>().ToImmutableList();
     }
 }
+
+public record PumlAo([property: Required] string Content);

@@ -1,12 +1,22 @@
+using System.Text.Json.Serialization;
 using Dres.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApiDocument(document =>
+{
+    document.DocumentName = "web-api";
+    document.Version = "1";
+    document.Title = "Web API";
+});
+
+builder.Services.AddCors(options =>
+    options.AddPolicy("default", policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 builder.Services.AddTransient<IResourceRelationsPumlBuilder, ResourceRelationsPumlBuilder>();
 
@@ -21,6 +31,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("default");
 
 app.MapControllerRoute(
     name: "default",
@@ -28,8 +39,8 @@ app.MapControllerRoute(
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseOpenApi(document => document.DocumentName = "web-api");
+    app.UseSwaggerUi3();
 }
 
 app.MapFallbackToFile("index.html");

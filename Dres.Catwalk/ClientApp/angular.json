@@ -78,7 +78,8 @@
               "browserTarget": "dres-catwalk:build:production"
             },
             "development": {
-              "browserTarget": "dres-catwalk:build:development"
+              "browserTarget": "dres-catwalk:build:development",
+              "proxyConfig": "proxy.conf.js"
             }
           },
           "defaultConfiguration": "development"
