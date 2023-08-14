@@ -20,6 +20,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddTransient<IResourceRelationsPumlBuilder, ResourceRelationsPumlBuilder>();
 
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

@@ -21,7 +21,6 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
-    "@sakirtemel/plantuml.js": "^1.0.1",
     "run-script-os": "^1.1.6",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

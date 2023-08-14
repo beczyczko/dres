@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
-import { PumlService } from './api-client/services';
-
-declare var plantuml: any;
+import { Component, Inject, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { API_BASE_URL, PumlService } from './api-client/services';
 
 @Component({
   selector: 'app-root',
@@ -14,34 +12,22 @@ export class AppComponent implements OnInit {
   title = 'dres-catwalk';
   plantumlInitialized = new BehaviorSubject(false);
 
-  constructor(private pumlService: PumlService) {
+  constructor(@Inject(API_BASE_URL) private baseUrl?: string) {
   }
 
   public ngOnInit() {
-    plantuml.initialize('assets/@sakirtemel/plantuml.js').then(() => {
-      this.plantumlInitialized.next(true);
-
-      // todo db render on some UI interaction
-      this.getPumlContent()
-        .pipe(
-          switchMap((pumlContent: string) => this.renderPuml(pumlContent))
-        ).subscribe();
-    })
+    this.getPumlContent(); // todo db move to some other component
   }
 
-  public getPumlContent(): Observable<string> {
-    return this.pumlService.getCombined(['1', '2'])
-      .pipe(map(res => res.content));
-  }
-
-  public renderPuml(pumlContent: string): Promise<any> {
-    return plantuml.renderPng(pumlContent)
-      .then((blob: any) => {
-        this.plantUmlHtmlElement.src = window.URL.createObjectURL(blob)
-      });
+  private getPumlContent(): void {
+    const specificationsIds = ['1', '2']; //todo db from frontend
+    const queryParams = specificationsIds.map(id => `specIds=${id}`);
+    const queryParamsJoined = queryParams.join('&');
+    this.plantUmlHtmlElement.data = `${this.baseUrl}/api/puml/combine/svg?${queryParamsJoined}`;
   }
 
   public get plantUmlHtmlElement(): any {
     return document.getElementById('plantuml-diagram');
   }
 }
+
