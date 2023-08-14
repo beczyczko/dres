@@ -1,7 +1,13 @@
+using Dres.Extensions.ApplicationBuilder;
 using Dres.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Dres.TestWebApp.Data;
+using Test.Resources.Carts;
+using Test.Resources.Countries;
+using Test.Resources.Customers;
+using Test.Resources.Products;
+using Test.Resources.Purchases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +26,11 @@ builder.Services.AddDres(options =>
 {
     options.AssembliesGetFunc = () => new[]
     {
-        typeof(Program).Assembly,
+        typeof(Country).Assembly,
+        typeof(Customer).Assembly,
+        typeof(Cart).Assembly,
+        typeof(Product).Assembly,
+        typeof(Purchase).Assembly,
     };
 });
 

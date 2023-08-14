@@ -37,10 +37,10 @@ public class ResourcesController : ControllerBase
         return Ok(resources);
     }
 
-    [HttpGet("as-puml-file")]
+    [HttpGet("puml-file")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK, MediaTypeNames.Text.Plain)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<string>> AsPumlFile()
+    public async Task<ActionResult<string>> PumlFile()
     {
         await Task.Yield();
 

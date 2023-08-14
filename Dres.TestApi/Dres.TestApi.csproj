@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Dres.Extensions.ApplicationBuilder\Dres.Extensions.ApplicationBuilder.csproj" />
       <ProjectReference Include="..\Dres.Extensions.DependencyInjection\Dres.Extensions.DependencyInjection.csproj" />
       <ProjectReference Include="..\Test.Resources.Carts\Test.Resources.Carts.csproj" />
       <ProjectReference Include="..\Test.Resources.Countries\Test.Resources.Countries.csproj" />
