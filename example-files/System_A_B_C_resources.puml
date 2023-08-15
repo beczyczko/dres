@@ -1,0 +1,109 @@
+@startuml
+
+left to right direction
+title Domain model relationships
+
+frame System_A.Countries {
+    class Country {
+        + Id : Guid
+        + Name : String
+    }
+}
+
+frame System_A.Customers {
+    class CreditCard {
+        + Id : Guid
+        + NameOnCard : String
+        + CardNumber : String
+        + Active : Boolean
+        + Created : DateTime
+        + Expiry : DateTime
+        + Customer : Customer
+    }
+    class Customer {
+        + Id : Guid
+        + FirstName : String
+        + LastName : String
+        + Email : String
+        + Password : String
+        + Balance : Decimal
+        + CountryId : Guid
+    }
+}
+
+frame System_B.Products {
+    class Product {
+        + Id : Guid
+        + Name : String
+        + Created : DateTime
+        + Modified : DateTime
+        + Active : Boolean
+        + Quantity : Int32
+        + Cost : Decimal
+        + Code : ProductCode
+        + Returns : ReadOnlyCollection`1
+    }
+    class ProductCode {
+        + Id : Guid
+        + Name : String
+    }
+    class Return {
+        + Product : Product
+        + CustomerId : Guid
+        + Reason : ReturnReason
+        + Created : DateTime
+        + Note : String
+    }
+}
+
+frame System_C.Carts {
+    class Cart {
+        + Id : Guid
+        + Products : ReadOnlyCollection`1
+        + CustomerId : Guid
+        + TotalCost : Decimal
+        + TotalTax : Decimal
+    }
+    class CartProduct {
+        + CartId : Guid
+        + CustomerId : Guid
+        + Quantity : Int32
+        + ProductId : Guid
+        + Created : DateTime
+        + Cost : Decimal
+        + Tax : Decimal
+    }
+}
+
+frame System_C.Purchases {
+    class Purchase {
+        + Id : Guid
+        + Products : ReadOnlyCollection`1
+        + Created : DateTime
+        + CustomerId : Guid
+        + TotalTax : Decimal
+        + TotalCost : Decimal
+    }
+    class PurchasedProduct {
+        + PurchaseId : Guid
+        + ProductId : Guid
+        + Quantity : Int32
+    }
+}
+
+
+
+System_A.Customers.CreditCard "Customer" ...> "Id" System_A.Customers.Customer
+System_A.Customers.Customer "CountryId" ...> "Id" System_A.Countries.Country
+System_B.Products.Product "Code" ...> "Id" System_B.Products.ProductCode
+System_B.Products.Return "Product" ...> "Id" System_B.Products.Product
+System_B.Products.Return "CustomerId" ...> "Id" System_A.Customers.Customer
+System_C.Carts.Cart "CustomerId" ...> "Id" System_A.Customers.Customer
+System_C.Carts.CartProduct "CartId" ...> "Id" System_C.Carts.Cart
+System_C.Carts.CartProduct "CustomerId" ...> "Id" System_A.Customers.Customer
+System_C.Carts.CartProduct "ProductId" ...> "Id" System_B.Products.Product
+System_C.Purchases.Purchase "CustomerId" ...> "Id" System_A.Customers.Customer
+System_C.Purchases.PurchasedProduct "PurchaseId" ...> "Id" System_C.Purchases.Purchase
+System_C.Purchases.PurchasedProduct "ProductId" ...> "Id" System_B.Products.Product
+
+@enduml
