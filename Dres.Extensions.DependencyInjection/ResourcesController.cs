@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Net.Mime;
+﻿using System.Net.Mime;
 using System.Text;
 using Dres.Core;
 using Microsoft.AspNetCore.Http;
@@ -26,15 +25,15 @@ public class ResourcesController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IImmutableList<Resource>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Specification), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<IImmutableList<Resource>>> All()
+    public async Task<ActionResult<Specification>> FullSpecification()
     {
         await Task.Yield();
 
         var assemblies = _assembliesResolver.GetAvailable();
         var resources = _resourcesProvider.Get(assemblies);
-        return Ok(resources);
+        return Ok(new Specification(resources.ToList()));
     }
 
     [HttpGet("puml-file")]

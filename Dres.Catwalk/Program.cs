@@ -1,9 +1,16 @@
 using System.Text.Json.Serialization;
+using Dres.Catwalk.Database;
 using Dres.Core;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ResourcesDbContext>(options =>
+    options.UseSqlite(connectionString));
+
 builder.Services.AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
@@ -23,6 +30,12 @@ builder.Services.AddTransient<IResourceRelationsPumlBuilder, ResourceRelationsPu
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ResourcesDbContext>();
+    db.Database.Migrate();
+}
 
 if (!app.Environment.IsDevelopment())
 {

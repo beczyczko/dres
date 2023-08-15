@@ -8,3 +8,6 @@ riderModule.iml
 Dres.Catwalk/ClientApp/.angular/
 Dres.TestWebApp/Dres.TestWebApp.csproj.user
 Dres.TestApi/Dres.TestApi.csproj.user
+Dres.Catwalk/app.db-wal
+Dres.Catwalk/app.db-shm
+Dres.Catwalk/app.db

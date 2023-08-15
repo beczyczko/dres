@@ -26,7 +26,7 @@ export class PumlService {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:7090";
     }
 
-    asPumlFile(specIds: string[] | undefined): Observable<string> {
+    asPumlFile(specIds: number[] | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/puml/combine?";
         if (specIds === null)
             throw new Error("The parameter 'specIds' cannot be null.");
@@ -83,7 +83,7 @@ export class PumlService {
         return _observableOf(null as any);
     }
 
-    downloadPumlFile(specIds: string[] | undefined): Observable<FileResponse> {
+    downloadPumlFile(specIds: number[] | undefined): Observable<FileResponse> {
         let url_ = this.baseUrl + "/api/puml/combine/download-puml-file?";
         if (specIds === null)
             throw new Error("The parameter 'specIds' cannot be null.");
@@ -145,7 +145,7 @@ export class PumlService {
         return _observableOf(null as any);
     }
 
-    svg(specIds: string[] | undefined): Observable<string> {
+    svg(specIds: number[] | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/puml/combine/svg?";
         if (specIds === null)
             throw new Error("The parameter 'specIds' cannot be null.");
@@ -203,6 +203,190 @@ export class PumlService {
     }
 }
 
+@Injectable()
+export class SpecificationsService {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:7090";
+    }
+
+    allAll(): Observable<SpecificationAo[]> {
+        let url_ = this.baseUrl + "/api/specifications";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAllAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAllAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SpecificationAo[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SpecificationAo[]>;
+        }));
+    }
+
+    protected processAllAll(response: HttpResponseBase): Observable<SpecificationAo[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as SpecificationAo[];
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result500: any = null;
+            result500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ProblemDetails;
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    publish(createSpec: CreateSpecificationAo): Observable<SpecificationAo> {
+        let url_ = this.baseUrl + "/api/specifications";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(createSpec);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPublish(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPublish(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SpecificationAo>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SpecificationAo>;
+        }));
+    }
+
+    protected processPublish(response: HttpResponseBase): Observable<SpecificationAo> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as SpecificationAo;
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result500: any = null;
+            result500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ProblemDetails;
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    all(id: number): Observable<SpecificationAo> {
+        let url_ = this.baseUrl + "/api/specifications/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SpecificationAo>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SpecificationAo>;
+        }));
+    }
+
+    protected processAll(response: HttpResponseBase): Observable<SpecificationAo> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as SpecificationAo;
+            return _observableOf(result200);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result404: any = null;
+            result404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ProblemDetails;
+            return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result500: any = null;
+            result500 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ProblemDetails;
+            return throwException("A server side error occurred.", status, _responseText, _headers, result500);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
 export interface ProblemDetails {
     type?: string | undefined;
     title?: string | undefined;
@@ -211,6 +395,55 @@ export interface ProblemDetails {
     instance?: string | undefined;
 
     [key: string]: any;
+}
+
+export interface SpecificationAo {
+    id?: number;
+    name?: string;
+    tag?: string;
+    createdOn?: Date;
+    resources?: ResourceAo[];
+}
+
+export interface ResourceAo {
+    id?: number;
+    name?: string;
+    domainContext?: string;
+    identifier?: string;
+    type?: string;
+    properties?: PropertyAo[];
+}
+
+export interface PropertyAo {
+    id?: number;
+    name?: string;
+    type?: string;
+    relatedResourcesIdentifiers?: string[];
+}
+
+export interface CreateSpecificationAo {
+    name?: string;
+    tag?: string;
+    specification?: Specification;
+}
+
+export interface Specification {
+    resources?: Resource[];
+}
+
+export interface Resource {
+    name?: string;
+    domainContext?: string;
+    identifier?: string;
+    type?: string;
+    properties?: Property[];
+}
+
+export interface Property {
+    resourceIdentifier?: string;
+    name?: string;
+    type?: string;
+    relatedResourcesIdentifiers?: string[];
 }
 
 export interface FileResponse {
