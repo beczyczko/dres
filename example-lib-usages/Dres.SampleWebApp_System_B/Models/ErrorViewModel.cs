@@ -1,4 +1,4 @@
-namespace Dres.TestWebApp.Models;
+namespace Dres.SampleWebApp_System_B.Models;
 
 public class ErrorViewModel
 {

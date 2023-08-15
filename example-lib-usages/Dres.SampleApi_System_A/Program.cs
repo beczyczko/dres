@@ -1,10 +1,7 @@
 using Dres.Extensions.ApplicationBuilder;
 using Dres.Extensions.DependencyInjection;
-using Test.Resources.Carts;
 using Test.Resources.Countries;
 using Test.Resources.Customers;
-using Test.Resources.Products;
-using Test.Resources.Purchases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,11 +14,9 @@ builder.Services.AddDres(options =>
 {
     options.AssembliesGetFunc = () => new[]
     {
+        // only from System_A
         typeof(Country).Assembly,
-        typeof(Customer).Assembly,
-        typeof(Cart).Assembly,
-        typeof(Product).Assembly,
-        typeof(Purchase).Assembly,
+        typeof(Customer).Assembly
     };
 });
 
@@ -41,6 +36,7 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
+// prove that defined endpoints work well with app.UseDres();
 app.MapGet("/weatherforecast", () =>
     {
         var forecast = Enumerable.Range(1, 5).Select(index =>

@@ -21,19 +21,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Dres.Extensions.ApplicationBuilder\Dres.Extensions.ApplicationBuilder.csproj" />
-      <ProjectReference Include="..\Dres.Extensions.DependencyInjection\Dres.Extensions.DependencyInjection.csproj" />
-      <ProjectReference Include="..\Test.Resources.Carts\Test.Resources.Carts.csproj" />
-      <ProjectReference Include="..\Test.Resources.Countries\Test.Resources.Countries.csproj" />
-      <ProjectReference Include="..\Test.Resources.Customers\Test.Resources.Customers.csproj" />
-      <ProjectReference Include="..\Test.Resources.Products\Test.Resources.Products.csproj" />
-      <ProjectReference Include="..\Test.Resources.Purchases\Test.Resources.Purchases.csproj" />
+      <ProjectReference Include="..\..\Dres.Extensions.ApplicationBuilder\Dres.Extensions.ApplicationBuilder.csproj" />
+      <ProjectReference Include="..\..\Dres.Extensions.DependencyInjection\Dres.Extensions.DependencyInjection.csproj" />
+      <ProjectReference Include="..\..\Test.Resources.Products\Test.Resources.Products.csproj" />
     </ItemGroup>
 
 </Project>

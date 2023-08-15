@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   private getPumlContent(): void {
-    const specificationsIds = [1]; // todo db from frontend
+    const specificationsIds = [2, 3]; // todo db from frontend
     const queryParams = specificationsIds.map(id => `specIds=${id}`);
     const queryParamsJoined = queryParams.join('&');
     this.plantUmlHtmlElement.data = `${this.baseUrl}/api/puml/combine/svg?${queryParamsJoined}`;

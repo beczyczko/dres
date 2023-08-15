@@ -1,8 +1,8 @@
 using System.Diagnostics;
+using Dres.SampleWebApp_System_B.Models;
 using Microsoft.AspNetCore.Mvc;
-using Dres.TestWebApp.Models;
 
-namespace Dres.TestWebApp.Controllers;
+namespace Dres.SampleWebApp_System_B.Controllers;
 
 public class HomeController : Controller
 {

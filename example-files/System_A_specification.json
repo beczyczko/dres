@@ -1,0 +1,128 @@
+{
+  "resources": [
+    {
+      "name": "Country",
+      "domainContext": "System_A.Countries",
+      "identifier": "System_A.Countries.Country",
+      "type": "Test.Resources.Countries.Country, Test.Resources.Countries, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_A.Countries.Country",
+          "name": "Id",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Countries.Country",
+          "name": "Name",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        }
+      ]
+    },
+    {
+      "name": "CreditCard",
+      "domainContext": "System_A.Customers",
+      "identifier": "System_A.Customers.CreditCard",
+      "type": "Test.Resources.Customers.CreditCard, Test.Resources.Customers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_A.Customers.CreditCard",
+          "name": "Id",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.CreditCard",
+          "name": "NameOnCard",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.CreditCard",
+          "name": "CardNumber",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.CreditCard",
+          "name": "Active",
+          "type": "Boolean",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.CreditCard",
+          "name": "Created",
+          "type": "DateTime",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.CreditCard",
+          "name": "Expiry",
+          "type": "DateTime",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.CreditCard",
+          "name": "Customer",
+          "type": "Customer",
+          "relatedResourcesIdentifiers": [
+            "System_A.Customers.Customer"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Customer",
+      "domainContext": "System_A.Customers",
+      "identifier": "System_A.Customers.Customer",
+      "type": "Test.Resources.Customers.Customer, Test.Resources.Customers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_A.Customers.Customer",
+          "name": "Id",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.Customer",
+          "name": "FirstName",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.Customer",
+          "name": "LastName",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.Customer",
+          "name": "Email",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.Customer",
+          "name": "Password",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.Customer",
+          "name": "Balance",
+          "type": "Decimal",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_A.Customers.Customer",
+          "name": "CountryId",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": [
+            "System_A.Countries.Country"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "resources": [
+    {
+      "name": "Product",
+      "domainContext": "System_B.Products",
+      "identifier": "System_B.Products.Product",
+      "type": "Test.Resources.Products.Product, Test.Resources.Products, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_B.Products.Product",
+          "name": "Id",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Product",
+          "name": "Name",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Product",
+          "name": "Created",
+          "type": "DateTime",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Product",
+          "name": "Modified",
+          "type": "DateTime",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Product",
+          "name": "Active",
+          "type": "Boolean",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Product",
+          "name": "Quantity",
+          "type": "Int32",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Product",
+          "name": "Cost",
+          "type": "Decimal",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Product",
+          "name": "Code",
+          "type": "ProductCode",
+          "relatedResourcesIdentifiers": [
+            "System_B.Products.ProductCode"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Product",
+          "name": "Returns",
+          "type": "ReadOnlyCollection`1",
+          "relatedResourcesIdentifiers": []
+        }
+      ]
+    },
+    {
+      "name": "ProductCode",
+      "domainContext": "System_B.Products",
+      "identifier": "System_B.Products.ProductCode",
+      "type": "Test.Resources.Products.ProductCode, Test.Resources.Products, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_B.Products.ProductCode",
+          "name": "Id",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.ProductCode",
+          "name": "Name",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        }
+      ]
+    },
+    {
+      "name": "Return",
+      "domainContext": "System_B.Products",
+      "identifier": "System_B.Products.Return",
+      "type": "Test.Resources.Products.Return, Test.Resources.Products, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_B.Products.Return",
+          "name": "Product",
+          "type": "Product",
+          "relatedResourcesIdentifiers": [
+            "System_B.Products.Product"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Return",
+          "name": "CustomerId",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": [
+            "System_A.Customers.Customer"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Return",
+          "name": "Reason",
+          "type": "ReturnReason",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Return",
+          "name": "Created",
+          "type": "DateTime",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_B.Products.Return",
+          "name": "Note",
+          "type": "String",
+          "relatedResourcesIdentifiers": []
+        }
+      ]
+    }
+  ]
+}
