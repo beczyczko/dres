@@ -1,0 +1,176 @@
+{
+  "resources": [
+    {
+      "name": "Cart",
+      "domainContext": "System_C.Carts",
+      "identifier": "System_C.Carts.Cart",
+      "type": "Test.Resources.Carts.Cart, Test.Resources.Carts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_C.Carts.Cart",
+          "name": "Id",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.Cart",
+          "name": "Products",
+          "type": "ReadOnlyCollection`1",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.Cart",
+          "name": "CustomerId",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": [
+            "System_A.Customers.Customer"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.Cart",
+          "name": "TotalCost",
+          "type": "Decimal",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.Cart",
+          "name": "TotalTax",
+          "type": "Decimal",
+          "relatedResourcesIdentifiers": []
+        }
+      ]
+    },
+    {
+      "name": "CartProduct",
+      "domainContext": "System_C.Carts",
+      "identifier": "System_C.Carts.CartProduct",
+      "type": "Test.Resources.Carts.CartProduct, Test.Resources.Carts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_C.Carts.CartProduct",
+          "name": "CartId",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": [
+            "System_C.Carts.Cart"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.CartProduct",
+          "name": "CustomerId",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": [
+            "System_A.Customers.Customer"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.CartProduct",
+          "name": "Quantity",
+          "type": "Int32",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.CartProduct",
+          "name": "ProductId",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": [
+            "System_B.Products.Product"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.CartProduct",
+          "name": "Created",
+          "type": "DateTime",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.CartProduct",
+          "name": "Cost",
+          "type": "Decimal",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Carts.CartProduct",
+          "name": "Tax",
+          "type": "Decimal",
+          "relatedResourcesIdentifiers": []
+        }
+      ]
+    },
+    {
+      "name": "Purchase",
+      "domainContext": "System_C.Purchases",
+      "identifier": "System_C.Purchases.Purchase",
+      "type": "Test.Resources.Purchases.Purchase, Test.Resources.Purchases, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_C.Purchases.Purchase",
+          "name": "Id",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Purchases.Purchase",
+          "name": "Products",
+          "type": "ReadOnlyCollection`1",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Purchases.Purchase",
+          "name": "Created",
+          "type": "DateTime",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Purchases.Purchase",
+          "name": "CustomerId",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": [
+            "System_A.Customers.Customer"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_C.Purchases.Purchase",
+          "name": "TotalTax",
+          "type": "Decimal",
+          "relatedResourcesIdentifiers": []
+        },
+        {
+          "resourceIdentifier": "System_C.Purchases.Purchase",
+          "name": "TotalCost",
+          "type": "Decimal",
+          "relatedResourcesIdentifiers": []
+        }
+      ]
+    },
+    {
+      "name": "PurchasedProduct",
+      "domainContext": "System_C.Purchases",
+      "identifier": "System_C.Purchases.PurchasedProduct",
+      "type": "Test.Resources.Purchases.PurchasedProduct, Test.Resources.Purchases, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "properties": [
+        {
+          "resourceIdentifier": "System_C.Purchases.PurchasedProduct",
+          "name": "PurchaseId",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": [
+            "System_C.Purchases.Purchase"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_C.Purchases.PurchasedProduct",
+          "name": "ProductId",
+          "type": "Guid",
+          "relatedResourcesIdentifiers": [
+            "System_B.Products.Product"
+          ]
+        },
+        {
+          "resourceIdentifier": "System_C.Purchases.PurchasedProduct",
+          "name": "Quantity",
+          "type": "Int32",
+          "relatedResourcesIdentifiers": []
+        }
+      ]
+    }
+  ]
+}
