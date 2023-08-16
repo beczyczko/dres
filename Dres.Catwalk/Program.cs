@@ -1,11 +1,15 @@
 using System.Text.Json.Serialization;
 using Dres.Catwalk.Database;
+using Dres.Catwalk.Settings;
 using Dres.Core;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<PlantumlServerOptions>(
+    builder.Configuration.GetSection(PlantumlServerOptions.Position));
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
                        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ResourcesDbContext>(options =>
