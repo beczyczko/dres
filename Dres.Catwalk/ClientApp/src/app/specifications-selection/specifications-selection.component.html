@@ -1,0 +1,16 @@
+<mat-form-field>
+  <mat-label>Specifications</mat-label>
+  <mat-select [formControl]="selectedSpecifications" multiple>
+    <mat-select-trigger>
+      {{selectedSpecifications.value?.[0]?.name || ''}}
+      <span *ngIf="(selectedSpecifications.value?.length || 0) > 1" class="additional-text">
+        (+{{(selectedSpecifications.value?.length || 0) - 1}} {{selectedSpecifications.value?.length === 2 ? 'other' : 'others'}}
+        )
+      </span>
+    </mat-select-trigger>
+    <mat-option *ngFor="let specification of allSpecifications$ | async"
+                [value]="specification">
+      {{specification.name}} <span class="additional-text">{{specification.tag}}</span>
+    </mat-option>
+  </mat-select>
+</mat-form-field>

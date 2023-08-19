@@ -38,7 +38,7 @@ public class SpecificationsController : ControllerBase
     [ProducesResponseType(typeof(SpecificationAo), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<SpecificationAo>> All([FromRoute] int id)
+    public async Task<ActionResult<SpecificationAo>> Details([FromRoute] int id)
     {
         var spec = await _resourcesDbContext.Specifications
             .Include(s => s.Resources)

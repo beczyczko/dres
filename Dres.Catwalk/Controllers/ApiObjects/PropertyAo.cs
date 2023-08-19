@@ -1,4 +1,6 @@
-﻿namespace Dres.Catwalk.Controllers.ApiObjects;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Dres.Catwalk.Controllers.ApiObjects;
 
 public class PropertyAo
 {
@@ -10,8 +12,8 @@ public class PropertyAo
         RelatedResourcesIdentifiers = relatedResourcesIdentifiers;
     }
 
-    public int Id { get; private set; }
-    public string Name { get; private set; }
-    public string Type { get; private set; }
-    public string[] RelatedResourcesIdentifiers { get; private set; }
+    [Required] public int Id { get; private set; }
+    [Required] public string Name { get; private set; }
+    [Required] public string Type { get; private set; }
+    [Required] public string[] RelatedResourcesIdentifiers { get; private set; }
 }

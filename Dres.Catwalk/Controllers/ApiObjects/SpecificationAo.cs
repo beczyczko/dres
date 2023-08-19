@@ -1,4 +1,6 @@
-﻿namespace Dres.Catwalk.Controllers.ApiObjects;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Dres.Catwalk.Controllers.ApiObjects;
 
 public class SpecificationAo
 {
@@ -16,9 +18,9 @@ public class SpecificationAo
         Resources = resources.ToList();
     }
 
-    public int Id { get; private set; }
-    public string Name { get; private set; }
-    public string Tag { get; private set; }
-    public DateTimeOffset CreatedOn { get; private set; }
-    public ICollection<ResourceAo> Resources { get; private set; }
+    [Required] public int Id { get; private set; }
+    [Required] public string Name { get; private set; }
+    [Required] public string Tag { get; private set; }
+    [Required] public DateTimeOffset CreatedOn { get; private set; }
+    [Required] public ICollection<ResourceAo> Resources { get; private set; }
 }

@@ -1,0 +1,6 @@
+<div id="component-container">
+  <app-specifications-selection
+    (selectionChanged)="onSpecificationSelectionChanged($event)"></app-specifications-selection>
+  <h1 id="warning" *ngIf="noSpecificationSelected">You need to select at least one specification</h1>
+  <object id="plantuml-diagram" [hidden]="noSpecificationSelected"></object>
+</div>
