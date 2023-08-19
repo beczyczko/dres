@@ -1,5 +1,4 @@
-using Dres.Extensions.ApplicationBuilder;
-using Dres.Extensions.DependencyInjection;
+using Dres.Extensions.ApiEndpoints;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Dres.SampleWebApp_System_B.Data;
@@ -18,7 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDres(options =>
+builder.Services.AddDresWithController(options =>
 {
     options.AssembliesGetFunc = () => new[]
     {

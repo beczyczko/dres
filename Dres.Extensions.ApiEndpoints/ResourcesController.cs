@@ -4,13 +4,12 @@ using Dres.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dres.Extensions.DependencyInjection;
+namespace Dres.Extensions.ApiEndpoints;
 
 [ApiController]
 [Route("dres/resources")]
 public class ResourcesController : ControllerBase
 {
-    // todo db i feel like this class should be in other project  
     private readonly IResourcesProvider _resourcesProvider;
     private readonly IAssembliesResolver _assembliesResolver;
     private readonly IResourceRelationsPumlBuilder _resourceRelationsPumlBuilder;

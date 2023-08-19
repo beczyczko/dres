@@ -1,5 +1,4 @@
-using Dres.Extensions.ApplicationBuilder;
-using Dres.Extensions.DependencyInjection;
+using Dres.Extensions.ApiEndpoints;
 using Test.Resources.Carts;
 using Test.Resources.Purchases;
 
@@ -10,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDres(options =>
+builder.Services.AddDresWithController(options =>
 {
     options.AssembliesGetFunc = () => new[]
     {

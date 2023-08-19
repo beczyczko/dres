@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Dres.Extensions.ApplicationBuilder;
+namespace Dres.Extensions.ApiEndpoints;
 
 public static class ApplicationBuilderExtensions
 {

@@ -14,8 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Dres.Extensions.ApplicationBuilder\Dres.Extensions.ApplicationBuilder.csproj" />
-      <ProjectReference Include="..\..\Dres.Extensions.DependencyInjection\Dres.Extensions.DependencyInjection.csproj" />
+      <ProjectReference Include="..\..\Dres.Extensions.ApiEndpoints\Dres.Extensions.ApiEndpoints.csproj" />
       <ProjectReference Include="..\..\Test.Resources.Countries\Test.Resources.Countries.csproj" />
       <ProjectReference Include="..\..\Test.Resources.Customers\Test.Resources.Customers.csproj" />
     </ItemGroup>

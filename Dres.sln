@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Resources.Purchases", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.Catwalk", "Dres.Catwalk\Dres.Catwalk.csproj", "{4E1E8462-FD63-47A5-B74B-44D9F66B7AA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.Extensions.ApplicationBuilder", "Dres.Extensions.ApplicationBuilder\Dres.Extensions.ApplicationBuilder.csproj", "{7CBA64A5-6CB8-4DA4-8CAF-270286EBB67C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.Extensions.ApiEndpoints", "Dres.Extensions.ApiEndpoints\Dres.Extensions.ApiEndpoints.csproj", "{7CBA64A5-6CB8-4DA4-8CAF-270286EBB67C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example-lib-usages", "example-lib-usages", "{DB6EB7CA-B369-4050-ACA6-C01F2477612F}"
 EndProject
