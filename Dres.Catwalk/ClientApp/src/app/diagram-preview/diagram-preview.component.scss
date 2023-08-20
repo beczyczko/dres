@@ -2,6 +2,12 @@
   display: flex;
   flex-direction: column
 }
+
 #warning {
   align-self: center;
+}
+
+#plantuml-diagram {
+  width: 100%;
+  height: calc(100vh - 79px);
 }

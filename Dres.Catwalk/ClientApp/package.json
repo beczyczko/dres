@@ -25,6 +25,7 @@
     "@angular/router": "^16.2.0",
     "run-script-os": "^1.1.6",
     "rxjs": "~7.8.0",
+    "svg-pan-zoom": "^3.6.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

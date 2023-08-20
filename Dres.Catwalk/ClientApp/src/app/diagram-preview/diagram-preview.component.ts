@@ -6,6 +6,7 @@ import {
 } from '../specifications-selection/specifications-selection.component';
 import { BehaviorSubject } from 'rxjs';
 import { API_BASE_URL, SpecificationsService } from '../api-client/services';
+import * as svgPanZoom from 'svg-pan-zoom';
 
 @Component({
   selector: 'app-diagram-preview',
@@ -26,10 +27,19 @@ export class DiagramPreviewComponent {
   private getPumlContent(specificationsIds: number[]): void {
     const queryParams = specificationsIds.map(id => `specIds=${id}`);
     const queryParamsJoined = queryParams.join('&');
+
     this.plantUmlHtmlElement.data = `${this.baseUrl}/api/puml/combine/svg?${queryParamsJoined}`;
+
+    // tododb this below should not be assigned multiple times?
+    this.plantUmlHtmlElement.onload = () => {
+      svgPanZoom('#plantuml-diagram', {
+        zoomEnabled: true,
+        controlIconsEnabled: true
+      });
+    }
   }
 
-  public get plantUmlHtmlElement(): any {
+  public get plantUmlHtmlElement(): any { // tododb define return type
     return document.getElementById('plantuml-diagram');
   }
 
