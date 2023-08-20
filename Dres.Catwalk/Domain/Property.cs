@@ -17,8 +17,8 @@ public class Property
 
 
     public int Id { get; private set; }
-    public Resource Resource { get; private set; }
-    public string Name { get; private set; }
-    public string Type { get; private set; }
-    public string[] RelatedResourcesIdentifiers { get; private set; }
+    public Resource Resource { get; private set; } = null!;
+    public string Name { get; private set; } = null!;
+    public string Type { get; private set; } = null!;
+    public string[] RelatedResourcesIdentifiers { get; private set; } = null!;
 }

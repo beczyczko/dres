@@ -18,8 +18,8 @@ public class Specification
     }
 
     public int Id { get; private set; }
-    public string Name { get; private set; }
-    public string Tag { get; private set; }
+    public string Name { get; private set; } = null!;
+    public string Tag { get; private set; } = null!;
     public DateTimeOffset CreatedOn { get; private set; }
-    public ICollection<Resource> Resources { get; private set; }
+    public ICollection<Resource> Resources { get; private set; } = null!;
 }
