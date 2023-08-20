@@ -1,4 +1,4 @@
-﻿namespace Dres.Catwalk.Settings;
+﻿namespace Dres.PlantumlServerIntegration.Settings;
 
 public class PlantumlServerOptions
 {

@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.SampleWebApp_System_B"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.SampleApi_System_C", "example-lib-usages\Dres.SampleApi_System_C\Dres.SampleApi_System_C.csproj", "{2F79E996-1B21-47C7-88E5-721A2925D9C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.PlantumlServerIntegration", "Dres.PlantumlServerIntegration\Dres.PlantumlServerIntegration.csproj", "{8E6AADB6-0C9C-445F-9D73-16A57D07B803}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{2F79E996-1B21-47C7-88E5-721A2925D9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F79E996-1B21-47C7-88E5-721A2925D9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F79E996-1B21-47C7-88E5-721A2925D9C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E6AADB6-0C9C-445F-9D73-16A57D07B803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E6AADB6-0C9C-445F-9D73-16A57D07B803}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E6AADB6-0C9C-445F-9D73-16A57D07B803}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E6AADB6-0C9C-445F-9D73-16A57D07B803}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

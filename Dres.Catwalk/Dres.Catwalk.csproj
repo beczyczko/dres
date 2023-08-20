@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Dres.Core\Dres.Core.csproj" />
+      <ProjectReference Include="..\Dres.PlantumlServerIntegration\Dres.PlantumlServerIntegration.csproj" />
     </ItemGroup>
 
     <ItemGroup>

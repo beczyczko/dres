@@ -3,11 +3,10 @@ using System.Net.Mime;
 using System.Text;
 using Dres.Catwalk.Database;
 using Dres.Catwalk.Extensions;
-using Dres.Catwalk.Settings;
 using Dres.Core;
+using Dres.PlantumlServerIntegration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace Dres.Catwalk.Controllers;
 
@@ -17,22 +16,19 @@ public class PumlController : ControllerBase
 {
     private readonly ILogger<PumlController> _logger;
     private readonly IResourceRelationsPumlBuilder _resourceRelationsPumlBuilder;
-    private readonly IHttpClientFactory _httpClientFactory;
     private readonly ResourcesDbContext _resourcesDbContext;
-    private readonly PlantumlServerOptions _plantumlServerOptions;
+    private readonly IPlantumlServerClient _plantumlServerClient;
 
     public PumlController(
         ILogger<PumlController> logger,
         IResourceRelationsPumlBuilder resourceRelationsPumlBuilder,
-        IHttpClientFactory httpClientFactory,
         ResourcesDbContext resourcesDbContext,
-        IOptions<PlantumlServerOptions> options)
+        IPlantumlServerClient plantumlServerClient)
     {
         _logger = logger;
         _resourceRelationsPumlBuilder = resourceRelationsPumlBuilder;
-        _httpClientFactory = httpClientFactory;
         _resourcesDbContext = resourcesDbContext;
-        _plantumlServerOptions = options.Value;
+        _plantumlServerClient = plantumlServerClient;
     }
 
     [HttpGet("combine")]
@@ -68,26 +64,10 @@ public class PumlController : ControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Svg([FromQuery] int[] specIds)
     {
-        // todo db cleanup
         var resources = await ResourcesBySpecIds(specIds);
         var puml = _resourceRelationsPumlBuilder.Build(resources);
+        var responseMessage = await _plantumlServerClient.Svg(puml);
 
-        var stringContent = new StringContent(puml, Encoding.UTF8, MediaTypeNames.Text.Plain);
-
-        var httpClient = _httpClientFactory.CreateClient();
-        using var httpResponseMessage = await httpClient.PostAsync(
-            $"{_plantumlServerOptions.BaseUrl}/plantuml/coder",
-            stringContent
-        );
-
-        await using var contentStream =
-            await httpResponseMessage.Content.ReadAsStreamAsync();
-        var reader = new StreamReader(contentStream);
-
-        var encodedPuml = await reader.ReadToEndAsync();
-
-        var responseMessage =
-            await httpClient.GetAsync($"{_plantumlServerOptions.BaseUrl}/plantuml/svg/" + encodedPuml);
         return await responseMessage.ToContentResultAsync("image/svg+xml");
     }
 
