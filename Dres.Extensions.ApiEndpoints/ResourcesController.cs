@@ -13,30 +13,31 @@ public class ResourcesController : ControllerBase
     private readonly IResourcesProvider _resourcesProvider;
     private readonly IAssembliesResolver _assembliesResolver;
     private readonly IResourceRelationsPumlBuilder _resourceRelationsPumlBuilder;
+    private readonly ISpecificationProvider _specificationProvider;
 
     public ResourcesController(
         IResourcesProvider resourcesProvider,
         IAssembliesResolver assembliesResolver,
-        IResourceRelationsPumlBuilder resourceRelationsPumlBuilder)
+        IResourceRelationsPumlBuilder resourceRelationsPumlBuilder,
+        ISpecificationProvider specificationProvider)
     {
         _resourcesProvider = resourcesProvider;
         _assembliesResolver = assembliesResolver;
         _resourceRelationsPumlBuilder = resourceRelationsPumlBuilder;
+        _specificationProvider = specificationProvider;
     }
 
-    [HttpGet]
+    [HttpGet("full-spec")]
     [ProducesResponseType(typeof(Specification), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<Specification>> FullSpecification()
     {
         await Task.Yield();
 
-        var assemblies = _assembliesResolver.GetAvailable();
-        var resources = _resourcesProvider.Get(assemblies);
-        return Ok(new Specification(resources.ToList()));
+        return Ok(_specificationProvider.Get());
     }
 
-    [HttpGet("puml-file")]
+    [HttpGet("full-spec/puml-file")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK, MediaTypeNames.Text.Plain)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<string>> PumlFile()
@@ -51,7 +52,7 @@ public class ResourcesController : ControllerBase
         return Ok(puml);
     }
 
-    [HttpGet("download-puml-file")]
+    [HttpGet("full-spec/download-puml-file")]
     [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK, MediaTypeNames.Text.Plain)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DownloadPumlFile()

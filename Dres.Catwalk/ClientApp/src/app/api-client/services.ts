@@ -267,11 +267,11 @@ export class SpecificationsService {
         return _observableOf(null as any);
     }
 
-    publish(createSpec: CreateSpecificationAo): Observable<SpecificationAo> {
+    publish(specificationData: Specification): Observable<SpecificationAo> {
         let url_ = this.baseUrl + "/api/specifications";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(createSpec);
+        const content_ = JSON.stringify(specificationData);
 
         let options_ : any = {
             body: content_,
@@ -421,14 +421,11 @@ export interface PropertyAo {
     relatedResourcesIdentifiers: string[];
 }
 
-export interface CreateSpecificationAo {
-    name?: string;
-    tag?: string;
-    specification?: Specification;
-}
-
 export interface Specification {
-    resources?: Resource[];
+    name: string;
+    tag: string;
+    dresApiVersion: string;
+    resources: Resource[];
 }
 
 export interface Resource {

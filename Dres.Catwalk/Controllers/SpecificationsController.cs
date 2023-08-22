@@ -55,11 +55,11 @@ public class SpecificationsController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(SpecificationAo), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<SpecificationAo>> Publish([FromBody] CreateSpecificationAo createSpec)
+    public async Task<ActionResult<SpecificationAo>> Publish([FromBody] Core.Specification specificationData)
     {
         var now = DateTimeOffset.Now;
 
-        var specification = new Specification(createSpec, now);
+        var specification = new Specification(specificationData, now);
 
         _resourcesDbContext.Specifications.Add(specification);
         await _resourcesDbContext.SaveChangesAsync();

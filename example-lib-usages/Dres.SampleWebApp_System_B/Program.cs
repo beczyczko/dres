@@ -23,6 +23,8 @@ builder.Services.AddDresWithController(options =>
     {
         typeof(Product).Assembly,
     };
+    options.SpecificationName = "System_B";
+    options.SpecificationTag = "1.0.0";
 });
 
 var app = builder.Build();

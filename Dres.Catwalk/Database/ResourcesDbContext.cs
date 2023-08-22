@@ -10,7 +10,7 @@ public class ResourcesDbContext : DbContext
     {
     }
 
-    public DbSet<Specification> Specifications { get; set; }
-    private DbSet<Resource> Resources { get; set; }
-    private DbSet<Property> Properties { get; set; }
+    public DbSet<Specification> Specifications { get; set; } = null!;
+    private DbSet<Resource> Resources { get; set; } = null!;
+    private DbSet<Property> Properties { get; set; } = null!;
 }

@@ -1,4 +1,5 @@
-﻿using Dres.Extensions.DependencyInjection;
+﻿using Dres.Core;
+using Dres.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Dres.Extensions.ApiEndpoints;

@@ -6,9 +6,9 @@ public class AssembliesResolver : IAssembliesResolver
 {
     private readonly Func<Assembly[]> _assembliesGetFunc;
 
-    public AssembliesResolver(Func<Assembly[]> assembliesGetFunc)
+    public AssembliesResolver(DresOptions dresOptions)
     {
-        _assembliesGetFunc = assembliesGetFunc;
+        _assembliesGetFunc = dresOptions.AssembliesGetFunc;
     }
 
     public Assembly[] GetAvailable()

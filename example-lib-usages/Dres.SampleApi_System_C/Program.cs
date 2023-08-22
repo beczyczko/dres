@@ -17,6 +17,8 @@ builder.Services.AddDresWithController(options =>
         typeof(Cart).Assembly,
         typeof(Purchase).Assembly
     };
+    options.SpecificationName = "System_C";
+    options.SpecificationTag = "1.0.0";
 });
 
 var app = builder.Build();

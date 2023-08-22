@@ -86,6 +86,10 @@ namespace Dres.Catwalk.Migrations
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DresApiVersion")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");

@@ -19,6 +19,7 @@ namespace Dres.Catwalk.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Tag = table.Column<string>(type: "TEXT", nullable: false),
+                    DresApiVersion = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>

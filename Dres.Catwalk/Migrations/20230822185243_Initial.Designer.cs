@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dres.Catwalk.Migrations
 {
     [DbContext(typeof(ResourcesDbContext))]
-    [Migration("20230815133347_Initial")]
+    [Migration("20230822185243_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -87,6 +87,10 @@ namespace Dres.Catwalk.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DresApiVersion")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")

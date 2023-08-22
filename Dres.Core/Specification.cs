@@ -1,11 +1,21 @@
-﻿namespace Dres.Core;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Dres.Core;
 
 public class Specification
 {
-    public Specification(ICollection<Resource> resources)
+    public Specification(string name, string tag, string dresApiVersion, ICollection<Resource> resources)
     {
-        Resources = resources.ToList();
+        Name = name;
+        Tag = tag;
+        DresApiVersion = dresApiVersion;
+        Resources = resources;
     }
-    
-    public ICollection<Resource> Resources { get; private set; }
+
+    [Required] public string Name { get; }
+
+    [Required] public string Tag { get; }
+
+    [Required] public string DresApiVersion { get; }
+    [Required] public ICollection<Resource> Resources { get; }
 }
