@@ -1,11 +1,14 @@
 using System.Text.Json.Serialization;
 using Dres.Catwalk.Database;
+using Dres.Catwalk.Specifications.FileSystem;
 using Dres.Core;
 using Dres.PlantumlServerIntegration;
 using Dres.PlantumlServerIntegration.Settings;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+SpecificationsDirectoryInitializer.EnsureCreated();
 
 var plantumlServerOptions = new PlantumlServerOptions();
 var plantumlServerConfigSection = builder.Configuration.GetSection(PlantumlServerOptions.Position);
@@ -36,6 +39,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("default", policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 builder.Services.AddTransient<IResourceRelationsPumlBuilder, ResourceRelationsPumlBuilder>();
+builder.Services.AddTransient<ISpecificationsFromFileSystemService, SpecificationsFromFileSystemService>();
 
 builder.Services.AddHttpClient();
 

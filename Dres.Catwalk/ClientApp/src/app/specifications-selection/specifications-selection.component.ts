@@ -4,14 +4,12 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { SpecificationsService } from '../api-client/services';
+import { SpecificationId, SpecificationsService } from '../api-client/services';
 import { debounceTime, map, Observable } from 'rxjs';
 
 export class SpecificationSummary {
   constructor(
-    public id: number,
-    public name: string,
-    public tag: string,
+    public id: SpecificationId,
     public createdOn: Date,
   ) {
   }
@@ -35,7 +33,7 @@ export class SpecificationsSelectionComponent {
     private readonly _specificationsService: SpecificationsService) {
     this.allSpecifications$ = this._specificationsService.all()
       .pipe(
-        map(value => value.map(s => new SpecificationSummary(s.id, s.name, s.tag, s.createdOn)))
+        map(value => value.map(s => new SpecificationSummary(s.specificationId, s.createdOn)))
       );
 
     this.selectedSpecifications.valueChanges

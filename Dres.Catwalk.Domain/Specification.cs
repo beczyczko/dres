@@ -1,4 +1,6 @@
-﻿namespace Dres.Catwalk.Domain;
+﻿using Dres.Core;
+
+namespace Dres.Catwalk.Domain;
 
 public class Specification
 {
@@ -9,16 +11,14 @@ public class Specification
 
     public Specification(Core.Specification createSpec, DateTimeOffset moment)
     {
-        Name = createSpec.Name;
-        Tag = createSpec.Tag;
+        SpecificationId = createSpec.SpecificationId;
         DresApiVersion = createSpec.DresApiVersion;
         CreatedOn = moment;
         Resources = createSpec.Resources.Select(r => new Resource(r, this)).ToList();
     }
 
     public int Id { get; private set; }
-    public string Name { get; private set; } = null!;
-    public string Tag { get; private set; } = null!;
+    public SpecificationId SpecificationId { get; private set; }
     public string DresApiVersion { get; private set; } = null!;
     public DateTimeOffset CreatedOn { get; private set; }
     public ICollection<Resource> Resources { get; private set; } = null!;

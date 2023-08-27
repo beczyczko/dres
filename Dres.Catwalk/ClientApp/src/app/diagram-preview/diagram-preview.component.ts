@@ -24,7 +24,7 @@ export class DiagramPreviewComponent {
     @Inject(API_BASE_URL) private baseUrl: string) {
   }
 
-  private getPumlContent(specificationsIds: number[]): void {
+  private getPumlContent(specificationsIds: string[]): void {
     const queryParams = specificationsIds.map(id => `specIds=${id}`);
     const queryParamsJoined = queryParams.join('&');
 
@@ -46,7 +46,7 @@ export class DiagramPreviewComponent {
   public onSpecificationSelectionChanged($event: SpecificationSummary[]) {
     if ($event.length > 0) {
       this.noSpecificationSelected = false;
-      this.getPumlContent($event.map(s => s.id));
+      this.getPumlContent($event.map(s => s.id.value));
     } else {
       this.noSpecificationSelected = true;
     }

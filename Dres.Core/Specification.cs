@@ -4,18 +4,14 @@ namespace Dres.Core;
 
 public class Specification
 {
-    public Specification(string name, string tag, string dresApiVersion, ICollection<Resource> resources)
+    public Specification(SpecificationId specificationId, string dresApiVersion, ICollection<Resource> resources)
     {
-        Name = name;
-        Tag = tag;
+        SpecificationId = specificationId;
         DresApiVersion = dresApiVersion;
         Resources = resources;
     }
 
-    [Required] public string Name { get; }
-
-    [Required] public string Tag { get; }
-
+    [Required] public SpecificationId SpecificationId { get; }
     [Required] public string DresApiVersion { get; }
     [Required] public ICollection<Resource> Resources { get; }
 }

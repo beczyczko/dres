@@ -20,6 +20,7 @@ public class Resource
     }
 
     public int Id { get; private set; }
+    public int SpecificationId { get; private set; }
     public Specification Specification { get; private set; } = null!;
     public string Name { get; private set; } = null!;
     public string DomainContext { get; private set; } = null!;

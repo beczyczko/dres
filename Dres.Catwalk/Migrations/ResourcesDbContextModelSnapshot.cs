@@ -40,7 +40,8 @@ namespace Dres.Catwalk.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResourceId");
+                    b.HasIndex("ResourceId", "Name")
+                        .IsUnique();
 
                     b.ToTable("Properties");
                 });
@@ -72,7 +73,8 @@ namespace Dres.Catwalk.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecificationId");
+                    b.HasIndex("SpecificationId", "Identifier")
+                        .IsUnique();
 
                     b.ToTable("Resources");
                 });
@@ -87,14 +89,6 @@ namespace Dres.Catwalk.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DresApiVersion")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tag")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -123,6 +117,40 @@ namespace Dres.Catwalk.Migrations
                         .IsRequired();
 
                     b.Navigation("Specification");
+                });
+
+            modelBuilder.Entity("Dres.Catwalk.Domain.Specification", b =>
+                {
+                    b.OwnsOne("Dres.Core.SpecificationId", "SpecificationId", b1 =>
+                        {
+                            b1.Property<int>("SpecificationId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Tag")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("SpecificationId");
+
+                            b1.HasIndex("Value")
+                                .IsUnique();
+
+                            b1.ToTable("Specifications");
+
+                            b1.WithOwner()
+                                .HasForeignKey("SpecificationId");
+                        });
+
+                    b.Navigation("SpecificationId")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dres.Catwalk.Domain.Resource", b =>

@@ -26,6 +26,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Dres.Catwalk.Domain\Dres.Catwalk.Domain.csproj" />
+      <ProjectReference Include="..\Dres.Catwalk.Specifications.FileSystem\Dres.Catwalk.Specifications.FileSystem.csproj" />
       <ProjectReference Include="..\Dres.Core\Dres.Core.csproj" />
       <ProjectReference Include="..\Dres.PlantumlServerIntegration\Dres.PlantumlServerIntegration.csproj" />
     </ItemGroup>

@@ -26,7 +26,7 @@ export class PumlService {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "https://localhost:7090";
     }
 
-    asPumlFile(specIds: number[] | undefined): Observable<string> {
+    asPumlFile(specIds: string[] | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/puml/combine?";
         if (specIds === null)
             throw new Error("The parameter 'specIds' cannot be null.");
@@ -83,7 +83,7 @@ export class PumlService {
         return _observableOf(null as any);
     }
 
-    downloadPumlFile(specIds: number[] | undefined): Observable<FileResponse> {
+    downloadPumlFile(specIds: string[] | undefined): Observable<FileResponse> {
         let url_ = this.baseUrl + "/api/puml/combine/download-puml-file?";
         if (specIds === null)
             throw new Error("The parameter 'specIds' cannot be null.");
@@ -145,7 +145,7 @@ export class PumlService {
         return _observableOf(null as any);
     }
 
-    svg(specIds: number[] | undefined): Observable<string> {
+    svg(specIds: string[] | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/puml/combine/svg?";
         if (specIds === null)
             throw new Error("The parameter 'specIds' cannot be null.");
@@ -398,15 +398,18 @@ export interface ProblemDetails {
 }
 
 export interface SpecificationAo {
-    id: number;
-    name: string;
-    tag: string;
+    specificationId: SpecificationId;
     createdOn: Date;
     resources: ResourceAo[];
 }
 
+export interface SpecificationId {
+    name: string;
+    tag: string;
+    value: string;
+}
+
 export interface ResourceAo {
-    id: number;
     name: string;
     domainContext: string;
     identifier: string;
@@ -415,15 +418,13 @@ export interface ResourceAo {
 }
 
 export interface PropertyAo {
-    id: number;
     name: string;
     type: string;
     relatedResourcesIdentifiers: string[];
 }
 
 export interface Specification {
-    name: string;
-    tag: string;
+    specificationId: SpecificationId;
     dresApiVersion: string;
     resources: Resource[];
 }

@@ -2,6 +2,7 @@
 using Dres.Catwalk.Database;
 using Dres.Catwalk.Domain;
 using Dres.Catwalk.Extensions;
+using Dres.Catwalk.Specifications.FileSystem;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,13 +14,16 @@ public class SpecificationsController : ControllerBase
 {
     private readonly ILogger<SpecificationsController> _logger;
     private readonly ResourcesDbContext _resourcesDbContext;
+    private readonly ISpecificationsFromFileSystemService _specificationsFromFileSystemService;
 
     public SpecificationsController(
         ILogger<SpecificationsController> logger,
-        ResourcesDbContext resourcesDbContext)
+        ResourcesDbContext resourcesDbContext,
+        ISpecificationsFromFileSystemService specificationsFromFileSystemService)
     {
         _logger = logger;
         _resourcesDbContext = resourcesDbContext;
+        _specificationsFromFileSystemService = specificationsFromFileSystemService;
     }
 
     [HttpGet]
@@ -31,19 +35,26 @@ public class SpecificationsController : ControllerBase
             .Include(s => s.Resources)
             .ThenInclude(r => r.Properties)
             .ToListAsync();
-        return Ok(specifications.Select(s => s.ToAo()));
+
+        var fileSpecifications = await _specificationsFromFileSystemService.GetAsync();
+
+        var allSpecs = specifications
+            .Select(s => s.ToAo())
+            .Concat(fileSpecifications.ConvertAll(s => s.ToAo()));
+
+        return Ok(allSpecs);
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id}")]
     [ProducesResponseType(typeof(SpecificationAo), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<SpecificationAo>> Details([FromRoute] int id)
+    public async Task<ActionResult<SpecificationAo>> Details([FromRoute] string id)
     {
         var spec = await _resourcesDbContext.Specifications
             .Include(s => s.Resources)
             .ThenInclude(r => r.Properties)
-            .SingleOrDefaultAsync(s => s.Id == id);
+            .SingleOrDefaultAsync(s => s.SpecificationId.Value == id);
         if (spec is null)
         {
             return NotFound();

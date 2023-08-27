@@ -17,8 +17,9 @@ namespace Dres.Catwalk.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Tag = table.Column<string>(type: "TEXT", nullable: false),
+                    SpecificationId_Name = table.Column<string>(type: "TEXT", nullable: false),
+                    SpecificationId_Tag = table.Column<string>(type: "TEXT", nullable: false),
+                    SpecificationId_Value = table.Column<string>(type: "TEXT", nullable: false),
                     DresApiVersion = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
                 },
@@ -73,14 +74,22 @@ namespace Dres.Catwalk.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Properties_ResourceId",
+                name: "IX_Properties_ResourceId_Name",
                 table: "Properties",
-                column: "ResourceId");
+                columns: new[] { "ResourceId", "Name" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Resources_SpecificationId",
+                name: "IX_Resources_SpecificationId_Identifier",
                 table: "Resources",
-                column: "SpecificationId");
+                columns: new[] { "SpecificationId", "Identifier" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Specifications_SpecificationId_Value",
+                table: "Specifications",
+                column: "SpecificationId_Value",
+                unique: true);
         }
 
         /// <inheritdoc />

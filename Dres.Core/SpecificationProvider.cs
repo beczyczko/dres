@@ -22,8 +22,9 @@ public class SpecificationProvider : ISpecificationProvider
         var resources = _resourcesProvider.Get(assemblies);
 
         return new Specification(
-            _dresOptions.SpecificationName,
-            _dresOptions.SpecificationTag,
+            new SpecificationId(
+                _dresOptions.SpecificationName,
+                _dresOptions.SpecificationTag),
             DresOptions.DresApiVersion,
             resources.ToList());
     }
