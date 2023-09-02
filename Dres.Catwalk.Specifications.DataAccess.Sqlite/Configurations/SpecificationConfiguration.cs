@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Specification = Dres.Catwalk.Domain.Specification;
 
-namespace Dres.Catwalk.Database.Configurations;
+namespace Dres.Catwalk.Specifications.DataAccess.Sqlite.Configurations;
 
 internal class SpecificationConfiguration : IEntityTypeConfiguration<Specification>
 {

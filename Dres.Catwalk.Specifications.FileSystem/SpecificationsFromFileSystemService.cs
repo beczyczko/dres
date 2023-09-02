@@ -1,11 +1,13 @@
 ﻿using System.Text.Json;
+using Dres.Catwalk.Specifications.Core.Dtos;
+using Dres.Catwalk.Specifications.FileSystem.Extensions;
 using Dres.Core;
 
 namespace Dres.Catwalk.Specifications.FileSystem;
 
 public class SpecificationsFromFileSystemService : ISpecificationsFromFileSystemService
 {
-    public async Task<List<Specification>> GetAsync()
+    public async Task<List<SpecificationDto>> GetAsync()
     {
         List<Specification> specifications = new();
 
@@ -26,6 +28,6 @@ public class SpecificationsFromFileSystemService : ISpecificationsFromFileSystem
             }
         }
 
-        return specifications;
+        return specifications.ConvertAll(s => s.ToDto());
     }
 }

@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Dres.Catwalk.Database;
+using Dres.Catwalk.Specifications.DataAccess.Sqlite;
 using Dres.Catwalk.Specifications.FileSystem;
 using Dres.Core;
 using Dres.PlantumlServerIntegration;
@@ -38,8 +38,9 @@ builder.Services.AddOpenApiDocument(document =>
 builder.Services.AddCors(options =>
     options.AddPolicy("default", policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
-builder.Services.AddTransient<IResourceRelationsPumlBuilder, ResourceRelationsPumlBuilder>();
-builder.Services.AddTransient<ISpecificationsFromFileSystemService, SpecificationsFromFileSystemService>();
+builder.Services.AddScoped<IResourceRelationsPumlBuilder, ResourceRelationsPumlBuilder>();
+builder.Services.AddScoped<ISpecificationsFromFileSystemService, SpecificationsFromFileSystemService>();
+builder.Services.AddScoped<ISpecificationsFromSqliteService, SpecificationsFromSqliteService>();
 
 builder.Services.AddHttpClient();
 

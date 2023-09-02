@@ -324,7 +324,7 @@ export class SpecificationsService {
         return _observableOf(null as any);
     }
 
-    details(id: number): Observable<SpecificationAo> {
+    details(id: string): Observable<SpecificationAo> {
         let url_ = this.baseUrl + "/api/specifications/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");

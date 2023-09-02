@@ -1,10 +1,8 @@
 ﻿using Dres.Catwalk.Controllers.ApiObjects;
-using Dres.Catwalk.Database;
-using Dres.Catwalk.Domain;
 using Dres.Catwalk.Extensions;
+using Dres.Catwalk.Specifications.DataAccess.Sqlite;
 using Dres.Catwalk.Specifications.FileSystem;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dres.Catwalk.Controllers;
 
@@ -13,17 +11,17 @@ namespace Dres.Catwalk.Controllers;
 public class SpecificationsController : ControllerBase
 {
     private readonly ILogger<SpecificationsController> _logger;
-    private readonly ResourcesDbContext _resourcesDbContext;
     private readonly ISpecificationsFromFileSystemService _specificationsFromFileSystemService;
+    private readonly ISpecificationsFromSqliteService _specificationsFromSqliteService;
 
     public SpecificationsController(
         ILogger<SpecificationsController> logger,
-        ResourcesDbContext resourcesDbContext,
-        ISpecificationsFromFileSystemService specificationsFromFileSystemService)
+        ISpecificationsFromFileSystemService specificationsFromFileSystemService,
+        ISpecificationsFromSqliteService specificationsFromSqliteService)
     {
         _logger = logger;
-        _resourcesDbContext = resourcesDbContext;
         _specificationsFromFileSystemService = specificationsFromFileSystemService;
+        _specificationsFromSqliteService = specificationsFromSqliteService;
     }
 
     [HttpGet]
@@ -31,11 +29,7 @@ public class SpecificationsController : ControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IEnumerable<SpecificationAo>>> All()
     {
-        var specifications = await _resourcesDbContext.Specifications
-            .Include(s => s.Resources)
-            .ThenInclude(r => r.Properties)
-            .ToListAsync();
-
+        var specifications = await _specificationsFromSqliteService.GetAsync();
         var fileSpecifications = await _specificationsFromFileSystemService.GetAsync();
 
         var allSpecs = specifications
@@ -51,10 +45,11 @@ public class SpecificationsController : ControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<SpecificationAo>> Details([FromRoute] string id)
     {
-        var spec = await _resourcesDbContext.Specifications
-            .Include(s => s.Resources)
-            .ThenInclude(r => r.Properties)
-            .SingleOrDefaultAsync(s => s.SpecificationId.Value == id);
+        var specifications = await _specificationsFromSqliteService.GetAsync();
+        var fileSpecifications = await _specificationsFromFileSystemService.GetAsync();
+        var allSpecs = specifications.Concat(fileSpecifications);
+
+        var spec = allSpecs.FirstOrDefault(s => s.SpecificationId.Value == id);
         if (spec is null)
         {
             return NotFound();
@@ -69,12 +64,8 @@ public class SpecificationsController : ControllerBase
     public async Task<ActionResult<SpecificationAo>> Publish([FromBody] Core.Specification specificationData)
     {
         var now = DateTimeOffset.Now;
+        var addedSpec = await _specificationsFromSqliteService.AddSpecificationAsync(specificationData, now);
 
-        var specification = new Specification(specificationData, now);
-
-        _resourcesDbContext.Specifications.Add(specification);
-        await _resourcesDbContext.SaveChangesAsync();
-
-        return Ok(specification.ToAo());
+        return Ok(addedSpec.ToAo());
     }
 }

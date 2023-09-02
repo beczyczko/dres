@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dres.Catwalk.Database.Configurations;
+namespace Dres.Catwalk.Specifications.DataAccess.Sqlite.Configurations;
 
 internal class ResourceConfiguration : IEntityTypeConfiguration<Resource>
 {

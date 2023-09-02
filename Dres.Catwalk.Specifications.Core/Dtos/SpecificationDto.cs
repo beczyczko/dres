@@ -2,10 +2,8 @@
 
 namespace Dres.Catwalk.Specifications.Core.Dtos;
 
-//tododb useit
 public record SpecificationDto(
-    string Name,
-    string Tag,
+    SpecificationId SpecificationId,
     string DresApiVersion,
     DateTimeOffset? CreatedOn,
-    ICollection<Resource> Resources);
+    ICollection<ResourceDto> Resources);

@@ -1,7 +1,7 @@
 ﻿using Dres.Catwalk.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dres.Catwalk.Database;
+namespace Dres.Catwalk.Specifications.DataAccess.Sqlite;
 
 public class ResourcesDbContext : DbContext
 {

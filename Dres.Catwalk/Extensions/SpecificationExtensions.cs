@@ -1,20 +1,11 @@
 ﻿using Dres.Catwalk.Controllers.ApiObjects;
-using Dres.Catwalk.Domain;
+using Dres.Catwalk.Specifications.Core.Dtos;
 
 namespace Dres.Catwalk.Extensions;
 
 public static class SpecificationExtensions
 {
-    public static SpecificationAo ToAo(this Dres.Core.Specification specification)
-    {
-        return new SpecificationAo(
-            specification.SpecificationId,
-            null,
-            specification.Resources.Select(r => r.ToAo())
-        );
-    }
-    
-    public static SpecificationAo ToAo(this Specification specification)
+    public static SpecificationAo ToAo(this SpecificationDto specification)
     {
         return new SpecificationAo(
             specification.SpecificationId,
@@ -22,46 +13,8 @@ public static class SpecificationExtensions
             specification.Resources.Select(r => r.ToAo())
         );
     }
-
-    public static Dres.Core.Resource ToDresCoreResource(this Resource resource)
-    {
-        return new Dres.Core.Resource(
-            resource.Name,
-            resource.DomainContext,
-            resource.Type,
-            resource.Properties.Select(p => p.ToDresCoreProperty(resource.Identifier)).ToList()
-        );
-    }
     
-    public static Dres.Core.Resource ToDresCoreResource(this Dres.Core.Resource resource)
-    {
-        return new Dres.Core.Resource(
-            resource.Name,
-            resource.DomainContext,
-            resource.Type,
-            resource.Properties.Select(p => p.ToDresCoreProperty(resource.Identifier)).ToList()
-        );
-    }
-
-    private static Dres.Core.Property ToDresCoreProperty(this Property property, string resourceIdentifier)
-    {
-        return new Dres.Core.Property(
-            resourceIdentifier,
-            property.Name,
-            property.Type,
-            property.RelatedResourcesIdentifiers);
-    }
-    
-    private static Dres.Core.Property ToDresCoreProperty(this Dres.Core.Property property, string resourceIdentifier)
-    {
-        return new Dres.Core.Property(
-            resourceIdentifier,
-            property.Name,
-            property.Type,
-            property.RelatedResourcesIdentifiers);
-    }
-
-    private static ResourceAo ToAo(this Resource resource)
+    private static ResourceAo ToAo(this ResourceDto resource)
     {
         return new ResourceAo(
             resource.Name,
@@ -72,7 +25,7 @@ public static class SpecificationExtensions
         );
     }
 
-    private static PropertyAo ToAo(this Property property)
+    private static PropertyAo ToAo(this Core.Property property)
     {
         return new PropertyAo(
             property.Name,
@@ -80,22 +33,13 @@ public static class SpecificationExtensions
             property.RelatedResourcesIdentifiers);
     }
     
-    private static ResourceAo ToAo(this Dres.Core.Resource resource)
+    public static Core.Resource ToDresCoreResource(this ResourceDto resource)
     {
-        return new ResourceAo(
+        return new Core.Resource(
             resource.Name,
             resource.DomainContext,
-            resource.Identifier,
             resource.Type,
-            resource.Properties.Select(p => p.ToAo())
+            resource.Properties
         );
-    }
-
-    private static PropertyAo ToAo(this Dres.Core.Property property)
-    {
-        return new PropertyAo(
-            property.Name,
-            property.Type,
-            property.RelatedResourcesIdentifiers);
     }
 }

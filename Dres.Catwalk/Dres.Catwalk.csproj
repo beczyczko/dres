@@ -13,8 +13,6 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.0-preview.7.23375.9"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0-preview.7.23375.4"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.7.23375.4"/>
         <PackageReference Include="NSwag.AspNetCore" Version="13.19.0" />
     </ItemGroup>
 
@@ -27,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Dres.Catwalk.Domain\Dres.Catwalk.Domain.csproj" />
+      <ProjectReference Include="..\Dres.Catwalk.Specifications.DataAccess.Sqlite\Dres.Catwalk.Specifications.DataAccess.Sqlite.csproj" />
       <ProjectReference Include="..\Dres.Catwalk.Specifications.FileSystem\Dres.Catwalk.Specifications.FileSystem.csproj" />
       <ProjectReference Include="..\Dres.Core\Dres.Core.csproj" />
       <ProjectReference Include="..\Dres.PlantumlServerIntegration\Dres.PlantumlServerIntegration.csproj" />
