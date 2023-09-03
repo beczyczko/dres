@@ -7,7 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Dres.Catwalk.Core\Dres.Catwalk.Core.csproj" />
       <ProjectReference Include="..\Dres.Catwalk.Specifications.Core\Dres.Catwalk.Specifications.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="Dres.Catwalk"/>
+    </ItemGroup>
+    
 </Project>

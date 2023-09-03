@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dres.Catwalk.Specifications.DataAccess.Sqlite;
 
-public class ResourcesDbContext : DbContext
+internal class ResourcesDbContext : DbContext
 {
     public ResourcesDbContext(DbContextOptions<ResourcesDbContext> options)
         : base(options)

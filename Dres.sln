@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.Catwalk.Specifications
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.Catwalk.Specifications.DataAccess.Sqlite", "Dres.Catwalk.Specifications.DataAccess.Sqlite\Dres.Catwalk.Specifications.DataAccess.Sqlite.csproj", "{45E36551-262C-437E-848D-FA82D55F5CC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dres.Catwalk.Core", "Dres.Catwalk.Core\Dres.Catwalk.Core.csproj", "{059ECFCC-ADB1-4D6B-85D4-DE1F41E50312}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{45E36551-262C-437E-848D-FA82D55F5CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45E36551-262C-437E-848D-FA82D55F5CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45E36551-262C-437E-848D-FA82D55F5CC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{059ECFCC-ADB1-4D6B-85D4-DE1F41E50312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{059ECFCC-ADB1-4D6B-85D4-DE1F41E50312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{059ECFCC-ADB1-4D6B-85D4-DE1F41E50312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{059ECFCC-ADB1-4D6B-85D4-DE1F41E50312}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

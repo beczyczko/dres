@@ -2,8 +2,7 @@
 using System.Net.Mime;
 using System.Text;
 using Dres.Catwalk.Extensions;
-using Dres.Catwalk.Specifications.DataAccess.Sqlite;
-using Dres.Catwalk.Specifications.FileSystem;
+using Dres.Catwalk.Specifications.Core;
 using Dres.Core;
 using Dres.PlantumlServerIntegration;
 using Microsoft.AspNetCore.Mvc;
@@ -17,21 +16,18 @@ public class PumlController : ControllerBase
     private readonly ILogger<PumlController> _logger;
     private readonly IResourceRelationsPumlBuilder _resourceRelationsPumlBuilder;
     private readonly IPlantumlServerClient _plantumlServerClient;
-    private readonly ISpecificationsFromFileSystemService _specificationsFromFileSystemService;
-    private readonly ISpecificationsFromSqliteService _specificationsFromSqliteService;
+    private readonly ISpecificationsService _specificationsService;
 
     public PumlController(
         ILogger<PumlController> logger,
         IResourceRelationsPumlBuilder resourceRelationsPumlBuilder,
         IPlantumlServerClient plantumlServerClient,
-        ISpecificationsFromFileSystemService specificationsFromFileSystemService,
-        ISpecificationsFromSqliteService specificationsFromSqliteService)
+        ISpecificationsService specificationsService)
     {
         _logger = logger;
         _resourceRelationsPumlBuilder = resourceRelationsPumlBuilder;
         _plantumlServerClient = plantumlServerClient;
-        _specificationsFromFileSystemService = specificationsFromFileSystemService;
-        _specificationsFromSqliteService = specificationsFromSqliteService;
+        _specificationsService = specificationsService;
     }
 
     [HttpGet("combine")]
@@ -76,16 +72,13 @@ public class PumlController : ControllerBase
 
     private async Task<IImmutableList<Resource>> ResourcesBySpecIds(string[] specIds)
     {
-        //tododb create some serice that will retrieve specs and resources from various places
-        var specifications = await _specificationsFromSqliteService.GetAsync();
-        var fileSpecifications = await _specificationsFromFileSystemService.GetAsync();
-        var allSpecs = specifications.Concat(fileSpecifications);
+        var specifications = await _specificationsService.GetAsync();
 
-        var fileSpecResources = allSpecs
+        var specResources = specifications
             .Where(s => specIds.Contains(s.SpecificationId.Value))
             .SelectMany(s => s.Resources)
             .Select(r => r.ToDresCoreResource());
         
-        return fileSpecResources.ToImmutableList();
+        return specResources.ToImmutableList();
     }
 }

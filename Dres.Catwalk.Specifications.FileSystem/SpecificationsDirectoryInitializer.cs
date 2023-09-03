@@ -1,12 +1,12 @@
 ﻿namespace Dres.Catwalk.Specifications.FileSystem;
 
-public static class SpecificationsDirectoryInitializer
+internal static class SpecificationsDirectoryInitializer
 {
-    public static void EnsureCreated()
+    public static void EnsureCreated(SpecificationsStorageFileSystemOptions specificationsStorageFileSystemOptions)
     {
-        if (!Directory.Exists(SpecificationsDirectory.Path))
+        if (!Directory.Exists(specificationsStorageFileSystemOptions.BasePath))
         {
-            Directory.CreateDirectory(SpecificationsDirectory.Path);
+            Directory.CreateDirectory(specificationsStorageFileSystemOptions.BasePath);
         }
     }
 }

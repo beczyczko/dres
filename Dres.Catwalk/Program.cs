@@ -1,14 +1,10 @@
 using System.Text.Json.Serialization;
-using Dres.Catwalk.Specifications.DataAccess.Sqlite;
-using Dres.Catwalk.Specifications.FileSystem;
+using Dres.Catwalk.Extensions;
 using Dres.Core;
 using Dres.PlantumlServerIntegration;
 using Dres.PlantumlServerIntegration.Settings;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-SpecificationsDirectoryInitializer.EnsureCreated();
 
 var plantumlServerOptions = new PlantumlServerOptions();
 var plantumlServerConfigSection = builder.Configuration.GetSection(PlantumlServerOptions.Position);
@@ -19,10 +15,7 @@ builder.Services.AddHttpClient<IPlantumlServerClient, PlantumlServerClient>(clie
     client.BaseAddress = new Uri(plantumlServerOptions.BaseUrl);
 });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ResourcesDbContext>(options =>
-    options.UseSqlite(connectionString));
+builder.AddSpecificationsStorage();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
@@ -39,24 +32,18 @@ builder.Services.AddCors(options =>
     options.AddPolicy("default", policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 builder.Services.AddScoped<IResourceRelationsPumlBuilder, ResourceRelationsPumlBuilder>();
-builder.Services.AddScoped<ISpecificationsFromFileSystemService, SpecificationsFromFileSystemService>();
-builder.Services.AddScoped<ISpecificationsFromSqliteService, SpecificationsFromSqliteService>();
 
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ResourcesDbContext>();
-    db.Database.Migrate();
-}
 
 if (!app.Environment.IsDevelopment())
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSpecificationsStorage();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

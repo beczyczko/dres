@@ -25,7 +25,7 @@ public static class SpecificationExtensions
         );
     }
 
-    private static PropertyAo ToAo(this Core.Property property)
+    private static PropertyAo ToAo(this Dres.Core.Property property)
     {
         return new PropertyAo(
             property.Name,
@@ -33,9 +33,9 @@ public static class SpecificationExtensions
             property.RelatedResourcesIdentifiers);
     }
     
-    public static Core.Resource ToDresCoreResource(this ResourceDto resource)
+    public static Dres.Core.Resource ToDresCoreResource(this ResourceDto resource)
     {
-        return new Core.Resource(
+        return new Dres.Core.Resource(
             resource.Name,
             resource.DomainContext,
             resource.Type,

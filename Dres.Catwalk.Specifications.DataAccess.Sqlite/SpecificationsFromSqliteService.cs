@@ -1,11 +1,12 @@
-﻿using Dres.Catwalk.Specifications.Core.Dtos;
+﻿using Dres.Catwalk.Specifications.Core;
+using Dres.Catwalk.Specifications.Core.Dtos;
 using Dres.Catwalk.Specifications.Core.Extensions;
 using Dres.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dres.Catwalk.Specifications.DataAccess.Sqlite;
 
-public class SpecificationsFromSqliteService : ISpecificationsFromSqliteService
+internal class SpecificationsFromSqliteService : ISpecificationsService
 {
     private readonly ResourcesDbContext _context;
 
