@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   SpecificationsSelectionComponent,
@@ -16,7 +16,7 @@ import * as svgPanZoom from 'svg-pan-zoom';
   styleUrls: ['./diagram-preview.component.scss'],
   providers: [SpecificationsService]
 })
-export class DiagramPreviewComponent {
+export class DiagramPreviewComponent implements OnInit {
   plantumlInitialized = new BehaviorSubject(false);
   noSpecificationSelected = true;
 
@@ -24,19 +24,20 @@ export class DiagramPreviewComponent {
     @Inject(API_BASE_URL) private baseUrl: string) {
   }
 
-  private getPumlContent(specificationsIds: string[]): void {
-    const queryParams = specificationsIds.map(id => `specIds=${id}`);
-    const queryParamsJoined = queryParams.join('&');
-
-    this.plantUmlHtmlElement.data = `${this.baseUrl}/api/puml/combine/svg?${queryParamsJoined}`;
-
-    // tododb this below should not be assigned multiple times?
+  ngOnInit(): void {
     this.plantUmlHtmlElement.onload = () => {
       svgPanZoom('#plantuml-diagram', {
         zoomEnabled: true,
         controlIconsEnabled: true
       });
     }
+  }
+
+  private getPumlContent(specificationsIds: string[]): void {
+    const queryParams = specificationsIds.map(id => `specIds=${id}`);
+    const queryParamsJoined = queryParams.join('&');
+
+    this.plantUmlHtmlElement.data = `${this.baseUrl}/api/puml/combine/svg?${queryParamsJoined}`;
   }
 
   public get plantUmlHtmlElement(): any { // tododb define return type
