@@ -25,11 +25,13 @@ export class DiagramPreviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.plantUmlHtmlElement.onload = () => {
-      svgPanZoom('#plantuml-diagram', {
-        zoomEnabled: true,
-        controlIconsEnabled: true
-      });
+    if (this.plantUmlHtmlElement) {
+      this.plantUmlHtmlElement.onload = () => {
+        svgPanZoom('#plantuml-diagram', {
+          zoomEnabled: true,
+          controlIconsEnabled: true
+        });
+      }
     }
   }
 
@@ -37,11 +39,14 @@ export class DiagramPreviewComponent implements OnInit {
     const queryParams = specificationsIds.map(id => `specIds=${id}`);
     const queryParamsJoined = queryParams.join('&');
 
-    this.plantUmlHtmlElement.data = `${this.baseUrl}/api/puml/combine/svg?${queryParamsJoined}`;
+    if (this.plantUmlHtmlElement) {
+      this.plantUmlHtmlElement.data = `${this.baseUrl}/api/puml/combine/svg?${queryParamsJoined}`;
+    }
   }
 
-  public get plantUmlHtmlElement(): any { // tododb define return type
-    return document.getElementById('plantuml-diagram');
+  public get plantUmlHtmlElement(): HTMLObjectElement | undefined {
+    return Array.from(document.getElementsByTagName('object'))
+      .find(value => value.id === 'plantuml-diagram');
   }
 
   public onSpecificationSelectionChanged($event: SpecificationSummary[]) {
