@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  dres-catwalk:
+    image: dres-catwalk
+    build:
+      context: .
+      dockerfile: Dres.Catwalk/Dockerfile
+    ports:
+      - 5000:80
+    environment:
+      - PlantumlServer__BaseUrl=http://plantuml-server:8080
+    volumes:
+      - ./Dres.Catwalk/data/:/app/data/ # default data storage is file storage, volume must be configured if file data storage type is used
+  
+  plantuml-server:
+    image: plantuml/plantuml-server:jetty
+    restart: unless-stopped
+    container_name: plantuml-server
+    ports:
+      - "7091:8080"
+    environment:
+      - TZ=Europe/Warsaw
+      - BASE_URL=plantuml
+        

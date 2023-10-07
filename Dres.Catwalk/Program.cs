@@ -45,7 +45,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseSpecificationsStorage();
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors("default");
@@ -54,11 +54,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseOpenApi(document => document.DocumentName = "web-api");
-    app.UseSwaggerUi3();
-}
+app.UseOpenApi(document => document.DocumentName = "web-api");
+app.UseSwaggerUi3();
 
 app.MapFallbackToFile("index.html");
 
