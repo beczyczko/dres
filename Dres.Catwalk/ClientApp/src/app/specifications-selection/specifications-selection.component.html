@@ -8,9 +8,11 @@
         )
       </span>
     </mat-select-trigger>
-    <mat-option *ngFor="let specification of allSpecifications$ | async"
-                [value]="specification">
-      {{specification.id.name}} <span class="additional-text">{{specification.id.tag}}</span>
-    </mat-option>
+    <mat-optgroup *ngFor="let group of specificationGroups$ | async" [label]="group.name">
+      <mat-option *ngFor="let specification of group.specifications"
+                  [value]="specification">
+        {{specification.id.name}} <span class="additional-text">{{specification.id.tag}}</span>
+      </mat-option>
+    </mat-optgroup>
   </mat-select>
 </mat-form-field>

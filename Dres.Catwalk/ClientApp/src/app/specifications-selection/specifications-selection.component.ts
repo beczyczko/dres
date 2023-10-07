@@ -6,11 +6,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SpecificationId, SpecificationsService } from '../api-client/services';
 import { debounceTime, map, Observable } from 'rxjs';
+import { groupBy } from '../../utils/group.by';
 
 export class SpecificationSummary {
   constructor(
     public id: SpecificationId,
     public createdOn: Date,
+  ) {
+  }
+}
+
+export class SpecificationGroup {
+  constructor(
+    public name: string,
+    public specifications: SpecificationSummary[]
   ) {
   }
 }
@@ -24,16 +33,21 @@ export class SpecificationSummary {
 })
 export class SpecificationsSelectionComponent {
   selectedSpecifications = new FormControl<SpecificationSummary[]>([]);
-  allSpecifications$: Observable<SpecificationSummary[]>;
+  specificationGroups$: Observable<SpecificationGroup[]>;
 
   @Output()
   selectionChanged = new EventEmitter<SpecificationSummary[]>();
 
   constructor(
     private readonly _specificationsService: SpecificationsService) {
-    this.allSpecifications$ = this._specificationsService.all()
+    this.specificationGroups$ = this._specificationsService.all()
       .pipe(
-        map(value => value.map(s => new SpecificationSummary(s.specificationId, s.createdOn)))
+        map(value => {
+          const groups = groupBy(value, s => s.specificationId.name);
+          return groups.map(group => new SpecificationGroup(
+            group.key,
+            group.values.map(s => new SpecificationSummary(s.specificationId, s.createdOn))));
+        })
       );
 
     this.selectedSpecifications.valueChanges
